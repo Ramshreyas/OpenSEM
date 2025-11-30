@@ -1,4 +1,5 @@
 # Product Requirements Document: OpenSEM (v0.1)
+# NOTE: OpenSEM is a Python-only project for now. All orchestration, automation, and tooling should be implemented in Python. Any references to Node.js or JS tools are for future consideration and should not be implemented at this stage.
 
 | **Project Name** | OpenSEM (Open Source Small Expert Models) |
 | :--- | :--- |
@@ -152,7 +153,7 @@ opensem/
 
 - Config Management: yaml (compatible with Axolotl standards).
 
-- Evaluation: Promptfoo (Node.js tool, wrapped via Python subprocess or run independently).
+- Evaluation: Promptfoo (prefer Python-native alternatives; Node.js integration deferred until future versions).
 
 - Tracking: Weights & Biases (wandb).
 

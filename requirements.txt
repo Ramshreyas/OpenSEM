@@ -1,0 +1,5 @@
+# Base dependencies for OpenSEM
+# Add more as needed per phase
+numpy
+pandas
+pyyaml
