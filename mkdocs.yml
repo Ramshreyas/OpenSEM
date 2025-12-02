@@ -1,0 +1,12 @@
+site_name: OpenSEM
+site_description: Open Source Small Expert Models Factory
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - content.code.copy
+
+nav:
+  - Home: index.md

@@ -3,3 +3,5 @@
 numpy
 pandas
 pyyaml
+mkdocs
+mkdocs-material

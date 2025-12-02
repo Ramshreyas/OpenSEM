@@ -14,8 +14,9 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [x] Plan CLI app (`opensem-cli`) for project and workflow management
 [x] Design CLI commands: `init`, `new-project`, `run-forge`, `train`, `evaluate`, etc.
 [x] Implement basic CLI app structure in `src/` or as standalone entry point
-[ ] Create README
-[ ] Update README
+[x] Create README
+[x] Create Docs
+[x] Setup GitHub Actions for Docs
 
 ## 2. Data Forge - Setup
 [ ] Discuss implementation plan
