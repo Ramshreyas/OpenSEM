@@ -1,0 +1,6 @@
+# Data Forge Configuration for testsem
+forge_class: "opensem.forge.TextForge"
+params:
+  teacher_model: "gemini-2.0-flash"
+  max_chars_per_doc: 5000  # Limit for development
+  chunk_size: 2500

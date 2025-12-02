@@ -49,15 +49,34 @@ Example:
 python opensem.py add-data war-and-peace.pdf
 ```
 
-#### 4. List all projects
+#### 4. Run Data Forge
+Process raw data into training datasets using the configured strategy.
+```bash
+python opensem.py run-forge --project <project_name>
+```
+
+#### 5. List all projects
 ```bash
 python opensem.py list-projects
 ```
 
-#### 5. Delete a project
+#### 6. Delete a project
 ```bash
 python opensem.py delete <project_name>
 ```
+
+## Data Forge Strategies
+OpenSEM uses a flexible "Strategy Pattern" for data processing. You can configure which strategy to use in `configs/<project>/data_config.yaml`.
+
+**Default Strategy: TextForge**
+- Supports `.txt`, `.md`, and `.pdf` files.
+- Extracts text and prepares it for synthesis.
+
+To create a custom strategy, extend `opensem.forge.BaseForge` and update your config file.
+
+## Tutorials
+Check out the `notebooks/` directory for interactive tutorials:
+- `notebooks/data_forge_tutorial.ipynb`: Learn how to use and extend the Data Forge module.
 
 ## Project Structure
 ```
@@ -65,8 +84,10 @@ OpenSEM/
 ├── configs/
 ├── data/
 ├── models/
+├── notebooks/
 ├── src/
-│   └── opensem_cli.py
+│   └── opensem/
+│       └── forge/
 ├── opensem.py
 ├── requirements.txt
 ```

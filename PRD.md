@@ -47,6 +47,12 @@ graph TD
 
 Responsibility: Turn raw documents into high-quality training pairs.
 
+**Architecture: Strategy Pattern**
+To support extensibility for different data types (Text, Image, Time-series), the Data Forge will use a Strategy Pattern.
+- **BaseForge (Interface):** Defines the contract (`load`, `synthesize`, `format`).
+- **TextForge (Default):** Implements the standard text processing pipeline described below.
+- **Custom Forge:** Users can extend `BaseForge` and specify their class in the config.
+
 - FR-A1 (Ingest): System must accept raw text (.txt, .md) from a data/raw directory.
 
 - FR-A2 (Synthesize): System must utilize an external API (OpenAI/Anthropic) to generate Instruction -> Output pairs based on the raw text.

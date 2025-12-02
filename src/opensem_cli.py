@@ -2,9 +2,51 @@ import shutil
 import argparse
 import sys
 import os
+import importlib
+import yaml
 
 WORKSPACE_ROOT = os.path.dirname(os.path.abspath(__file__))
 PROJECT_FILE = os.path.join(WORKSPACE_ROOT, '../.opensem_project')
+
+def run_forge(project):
+    if project is None:
+        project = get_current_project()
+        if not project:
+            print("No project specified and no current project set.")
+            return
+
+    print(f"Running Data Forge for project: {project}")
+    
+    # Load config
+    config_path = os.path.join(WORKSPACE_ROOT, '../configs', project, 'data_config.yaml')
+    if not os.path.exists(config_path):
+        print(f"Config file not found: {config_path}. Using defaults.")
+        config = {}
+    else:
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f) or {}
+
+    # Set default paths if not present
+    config.setdefault('raw_data_dir', os.path.join(WORKSPACE_ROOT, '../data', project, 'raw'))
+    config.setdefault('processed_data_dir', os.path.join(WORKSPACE_ROOT, '../data', project, 'processed'))
+    
+    # Determine Forge Class
+    forge_class_path = config.get('forge_class', 'opensem.forge.TextForge')
+    module_name, class_name = forge_class_path.rsplit('.', 1)
+    
+    try:
+        module = importlib.import_module(module_name)
+        ForgeClass = getattr(module, class_name)
+    except (ImportError, AttributeError) as e:
+        print(f"Error loading Forge class '{forge_class_path}': {e}")
+        return
+
+    # Instantiate and run
+    try:
+        forge = ForgeClass(config)
+        forge.run()
+    except Exception as e:
+        print(f"Data Forge failed: {e}")
 
 def delete_project(name):
     # Confirm deletion
@@ -12,7 +54,7 @@ def delete_project(name):
     if confirm != 'y':
         print("Deletion cancelled.")
         return
-    # After deletion, exit immediately to avoid further prompts
+    
     removed_any = False
     for base in ['data', 'models', 'configs']:
         path = os.path.join(WORKSPACE_ROOT, '../', base, name)
@@ -20,28 +62,14 @@ def delete_project(name):
             shutil.rmtree(path)
             print(f"Deleted {path}")
             removed_any = True
+            
     # Remove current project if matches
     current = get_current_project()
     if current == name:
         if os.path.exists(PROJECT_FILE):
             os.remove(PROJECT_FILE)
         print(f"Current project '{name}' removed from context.")
-    if not removed_any:
-        print(f"No directories found for project '{name}'.")
-    sys.exit(0)
-    removed_any = False
-    for base in ['data', 'models', 'configs']:
-        path = os.path.join(WORKSPACE_ROOT, '../', base, name)
-        if os.path.exists(path):
-            shutil.rmtree(path)
-            print(f"Deleted {path}")
-            removed_any = True
-    # Remove current project if matches
-    current = get_current_project()
-    if current == name:
-        if os.path.exists(PROJECT_FILE):
-            os.remove(PROJECT_FILE)
-        print(f"Current project '{name}' removed from context.")
+        
     if not removed_any:
         print(f"No directories found for project '{name}'.")
 import shutil
@@ -157,6 +185,17 @@ def new_project(name):
         if not os.path.exists(config_file):
             with open(config_file, 'w') as cf:
                 cf.write(f'# {f} for {name}\n')
+    
+    # Create data_config.yaml with default strategy
+    data_config_file = os.path.join(WORKSPACE_ROOT, '../configs', name, 'data_config.yaml')
+    if not os.path.exists(data_config_file):
+        with open(data_config_file, 'w') as cf:
+            cf.write(f"""# Data Forge Configuration for {name}
+forge_class: "opensem.forge.TextForge"
+params:
+  teacher_model: "gpt-4o-mini"
+""")
+
     print(f"Created new SEM project: {name}")
     set_current_project(name)
 
@@ -178,6 +217,9 @@ def main():
     add_data_parser = subparsers.add_parser('add-data', help='Add data files to SEM project raw folder')
     add_data_parser.add_argument('files', nargs='+', help='Files or folders to add')
     add_data_parser.add_argument('--project', help='SEM project name (optional, defaults to current project)', default=None)
+    # run-forge
+    run_forge_parser = subparsers.add_parser('run-forge', help='Run the Data Forge pipeline')
+    run_forge_parser.add_argument('--project', help='SEM project name (optional, defaults to current project)', default=None)
     # set-project
     set_project_parser = subparsers.add_parser('set-project', help='Set the current SEM project')
     set_project_parser.add_argument('name', help='SEM project name')
@@ -196,6 +238,8 @@ def main():
         status(args.project)
     elif args.command == 'add-data':
         add_data(args.project, args.files)
+    elif args.command == 'run-forge':
+        run_forge(args.project)
     elif args.command == 'set-project':
         set_current_project(args.name)
     elif args.command == 'delete':
@@ -204,8 +248,4 @@ def main():
         parser.print_help()
 
 if __name__ == '__main__':
-    main()
-
-if __name__ == '__main__':
-    main()
     main()

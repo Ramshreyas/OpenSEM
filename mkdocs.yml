@@ -10,3 +10,8 @@ theme:
 
 nav:
   - Home: index.md
+  - Architecture: architecture.md
+  - Tutorials:
+    - Quick Start: tutorials/quick_start.md
+    - Data Forge: tutorials/data_forge.md
+  - Notebooks: notebooks.md

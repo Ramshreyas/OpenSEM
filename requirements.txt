@@ -5,3 +5,8 @@ pandas
 pyyaml
 mkdocs
 mkdocs-material
+pypdf
+python-dotenv
+google-generativeai
+pygments
+ipykernel

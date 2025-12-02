@@ -19,16 +19,18 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [x] Setup GitHub Actions for Docs
 
 ## 2. Data Forge - Setup
-[ ] Discuss implementation plan
-[ ] Update requirements.txt for phase
-[ ] Implement data ingestion from `data/raw` (support .txt, .md)
-[ ] Integrate external API for instruction/output synthesis
-[ ] Allow teacher model configuration (e.g., GPT-4o, GPT-4o-mini)
-[ ] Format output to JSONL (ShareGPT format)
-[ ] Implement train/test split (90/10)
-[ ] Save processed data to `data/processed` per SEM project
-[ ] Update CLI
-[ ] Update README
+[x] Discuss implementation plan
+[x] Update requirements.txt for phase
+[x] Implement data ingestion from `data/raw` (support .txt, .md, .pdf)
+[x] Integrate external API for instruction/output synthesis
+[x] Allow teacher model configuration (e.g., GPT-4o, GPT-4o-mini)
+[x] Format output to JSONL (ShareGPT format)
+[x] Implement train/test split (90/10)
+[x] Save processed data to `data/processed` per SEM project
+[x] Update CLI
+[x] Create tutorial notebook
+[x] Update README
+[x] Update Docs
 
 ## 3. Data Forge - Trial/Test Domain
 [ ] Discuss implementation plan
@@ -39,7 +41,9 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [ ] Create and verify a golden set in `data/golden`
 [ ] Validate processed data format and quality
 [ ] Update CLI
+[ ] Create tutorial notebook
 [ ] Update README
+[ ] Update Docs
 
 ## 4. Training Floor - Baseline Test Creation
 [ ] Discuss implementation plan
@@ -50,7 +54,9 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [ ] Iterate on baseline test prompts and golden set
 [ ] Document baseline results
 [ ] Update CLI
+[ ] Create tutorial notebook
 [ ] Update README
+[ ] Update Docs
 
 ## 5. Finetune - Local/Cloud
 [ ] Discuss implementation plan
@@ -62,7 +68,9 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [ ] Save LoRA adapters to `models/adapters/{run_name}` per SEM
 [ ] Track training runs with Weights & Biases
 [ ] Update CLI
+[ ] Create tutorial notebook
 [ ] Update README
+[ ] Update Docs
 
 ## 6. Test Against Baseline
 [ ] Discuss implementation plan
@@ -71,7 +79,9 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [ ] Compare fine-tuned results to baseline
 [ ] Update CLI
 [ ] Output CLI summary table
+[ ] Create tutorial notebook
 [ ] Update README
+[ ] Update Docs
 
 ## 7. Iterate Finetune & Test
 [ ] Discuss implementation plan
@@ -80,7 +90,9 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [ ] Repeat finetuning and evaluation for improved results
 [ ] Document iterations and findings
 [ ] Update CLI
+[ ] Create tutorial notebook
 [ ] Update README
+[ ] Update Docs
 
 ## 8. Report Generation
 [ ] Discuss implementation plan
@@ -89,7 +101,9 @@ This file breaks down the MVP implementation into fine-grained, actionable tasks
 [ ] Summarize results for each SEM project
 [ ] Document lessons learned and next steps
 [ ] Update CLI
+[ ] Create tutorial notebook
 [ ] Update README
+[ ] Update Docs
 
 ---
 
